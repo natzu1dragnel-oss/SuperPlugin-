@@ -1,0 +1,27 @@
+name: Build SuperPlugin DLL
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Build project
+      run: msbuild SuperPlugin.cs /t:Library /p:Configuration=Release
+
+    - name: Upload DLL artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: SuperPlugin
+        path: |
+          **/*.dll
