@@ -17,7 +17,7 @@ jobs:
       - name: Configurar .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0.x   # versión de .NET compatible con TShock 1.4.4.9
+          dotnet-version: 6.0.x
 
       - name: Compilar el plugin
         run: dotnet build SuperPlugin.csproj -c Release
