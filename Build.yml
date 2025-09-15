@@ -1,4 +1,4 @@
-name: Build SuperPlugin DLL
+name: Compilar SuperPlugin
 
 on:
   push:
@@ -8,21 +8,22 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Descargar el repositorio
+        uses: actions/checkout@v3
 
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v1.1
+      - name: Configurar .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x   # versión de .NET compatible con TShock 1.4.4.9
 
-    - name: Build project
-      run: msbuild SuperPlugin.cs /t:Library /p:Configuration=Release
+      - name: Compilar el plugin
+        run: dotnet build SuperPlugin.csproj -c Release
 
-    - name: Upload DLL artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: SuperPlugin
-        path: |
-          **/*.dll
-aaa
+      - name: Subir DLL como artefacto
+        uses: actions/upload-artifact@v3
+        with:
+          name: SuperPlugin
+          path: bin/Release/net6.0/*.dll
