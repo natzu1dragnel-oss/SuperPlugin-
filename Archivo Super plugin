@@ -158,4 +158,4 @@ namespace SuperPluginRPG
             public List<string> Unlocks { get; set; } = new List<string>();
         }
     }
-}aaa
+} 
